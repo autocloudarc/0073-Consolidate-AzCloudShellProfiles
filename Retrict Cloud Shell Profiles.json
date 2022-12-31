@@ -1,0 +1,57 @@
+{
+  "properties": {
+    "displayName": "Restrict Cloud Shell Profiles",
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "description": "Restrict Azure Cloud Shell profiles to a specific storage account within the organization.",
+    "metadata": {
+      "category": "Storage",
+      "createdBy": "471359bd-9a70-41f2-ae9b-2bcf578fc4f0",
+      "createdOn": "2022-11-29T01:46:58.6053013Z",
+      "updatedBy": "471359bd-9a70-41f2-ae9b-2bcf578fc4f0",
+      "updatedOn": "2022-11-29T02:16:07.2519013Z"
+    },
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Deny or disable the execution of the policy"
+        },
+        "allowedValues": [
+          "Deny",
+          "Disabled"
+        ],
+        "defaultValue": "Deny"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Storage/storageAccounts"
+          },
+          {
+            "field": "tags.ms-resource-usage",
+            "equals": "azure-cloud-shell"
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]"
+      }
+    }
+  },
+  "id": "/providers/Microsoft.Management/managementGroups/staging/providers/Microsoft.Authorization/policyDefinitions/bd8a25ad-54c6-44e3-bfb3-70285ae2f505",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "name": "bd8a25ad-54c6-44e3-bfb3-70285ae2f505",
+  "systemData": {
+    "createdBy": "OCAG097@outlook.com",
+    "createdByType": "User",
+    "createdAt": "2022-11-29T01:46:58.5707816Z",
+    "lastModifiedBy": "OCAG097@outlook.com",
+    "lastModifiedByType": "User",
+    "lastModifiedAt": "2022-11-29T02:16:07.2223498Z"
+  }
+}
